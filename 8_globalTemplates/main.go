@@ -17,7 +17,7 @@ func main()  {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	err = tpl.ExecuteTemplate(os.Stdout,"tpl2.goHtml",nil) //with ExecuteTemplate we have to specify which template to load
+	err = tpl.ExecuteTemplate(os.Stdout,"tpl2.goHtml","eum602") //with ExecuteTemplate we have to specify which template to load
 	if err != nil {
 		log.Fatalln(err)
 	}

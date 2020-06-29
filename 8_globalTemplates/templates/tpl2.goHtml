@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Go template 2</title>
+        {{$wisdom := . }}
         <body>
-            <h1>This is a title 2</h1>
+            <h1>This is a title 2 executed by the variable {{$wisdom}}!!</h1>
         </body>
     </head>
 </html>
