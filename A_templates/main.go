@@ -35,4 +35,9 @@ func main() {
 		log.Fatalln(err)
 	}
 
+	err = tpl.Execute(os.Stdout, nil) //simply gets the first file loaded into the tpl templates container
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 }
