@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Go template 1</title>
+        <title>Go template 2</title>
         <body>
             <h1>This is a title</h1>
         </body>

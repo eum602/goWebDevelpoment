@@ -23,4 +23,16 @@ func main() {
 	if err != nil {
 		log.Fatalln(err)
 	}
+
+	tpl, err = tpl.ParseFiles("tpl.goHtml", "tpl2.some")
+	err = tpl.ExecuteTemplate(os.Stdout, "tpl2.some", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	err = tpl.ExecuteTemplate(os.Stdout, "tpl.goHtml", nil)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
 }
