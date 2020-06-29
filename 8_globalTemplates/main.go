@@ -13,7 +13,7 @@ func init()  {
 }
 
 func main()  {	
-	err := tpl.Execute(os.Stdout,nil) //loads the first
+	err := tpl.ExecuteTemplate(os.Stdout,"tpl1.goHtml","Erick") //here we can pass also aggregate data like slices, structs and so on
 	if err != nil {
 		log.Fatalln(err)
 	}
