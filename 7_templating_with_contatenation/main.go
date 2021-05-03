@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	name := "eum602"
+	name := os.Args[1] //[0] is the program you execute, and [1] is the argument you enter.
 	str := fmt.Sprint(`
 		<!DOCTYPE html>
 		<html lan="en">
@@ -33,3 +33,5 @@ func main() {
 
 	io.Copy(nf, strings.NewReader(str))
 }
+
+//run it with -> go run man.go eum602
