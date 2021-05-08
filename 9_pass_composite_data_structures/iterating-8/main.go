@@ -24,10 +24,10 @@ type sage struct {
 	Motto string
 }
 
-type items struct {
-	Wisdom    []sage
-	Transport []car
-}
+// type items struct {
+// 	Wisdom    []sage
+// 	Transport []car
+// }
 
 func main() {
 	budha := sage{
@@ -67,10 +67,19 @@ func main() {
 		c,
 	}
 
-	data := items{
+	// data := items{
+	// 	Wisdom:    sages,
+	// 	Transport: cars,
+	// }
+
+	data := struct { //using a composite literal instead of creating a new type. This is like an anonymous declaration type
+		Wisdom    []sage
+		Transport []car
+	}{
 		Wisdom:    sages,
 		Transport: cars,
 	}
+
 	err := tpl.Execute(os.Stdout, data)
 	if err != nil {
 		log.Fatalln(err)
