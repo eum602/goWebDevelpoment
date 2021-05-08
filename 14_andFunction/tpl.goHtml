@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>predefined global functions</title>
+        <body>
+            Example #1: 
+            {{range .}}
+                <br>
+                {{.}}
+            {{end}}
+
+            <br>
+            Example #2:
+            {{if .}} <!-- "if" condition verifies if the input exists -->
+                <br>
+                Example #2:  - {{.}}
+            {{end}}
+
+            {{range .}}
+                <br>
+                {{if .Name}}
+                    Example #3: {{.Name}}
+                {{end}}
+            {{end}}
+        </body>
+    </head>
+</html>
