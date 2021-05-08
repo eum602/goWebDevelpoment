@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Go template 1</title>
+        <body>
+            <h1>Iterating over a struct first declaring a variable</h1>
+            <ul>
+                {{range .}}
+                    {{$x:= .Name}}
+                    {{$y:= .Motto}}
+                    <li>{{$x}} - {{$y}} </li>
+                {{end}}
+            </ul>
+        </body>
+    </head>
+</html>
