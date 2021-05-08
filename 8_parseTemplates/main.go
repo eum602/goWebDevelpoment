@@ -24,7 +24,8 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	tpl, err = tpl.ParseFiles("tpl.goHtml", "tpl2.some")
+	tpl, err = tpl.ParseFiles("tpl_another_added.goHtml", "tpl2.some") //I can add any template into the container even
+	//when I declared "tpl" with some other themplates at the beggining
 	err = tpl.ExecuteTemplate(os.Stdout, "tpl2.some", nil)
 	if err != nil {
 		log.Fatalln(err)
