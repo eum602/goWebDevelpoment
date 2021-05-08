@@ -11,7 +11,7 @@ var tpl *template.Template
 type user struct {
 	Name  string
 	Motto string
-	Adim  bool
+	Admin bool
 }
 
 func init() {
@@ -22,19 +22,19 @@ func main() {
 	u1 := user{
 		Name:  "eum602",
 		Motto: "nothing",
-		Adim:  true,
+		Admin: true,
 	}
 
 	u2 := user{
 		Name:  "Jhon Doe",
 		Motto: "nothing",
-		Adim:  false,
+		Admin: false,
 	}
 
 	u3 := user{
 		Name:  "",
 		Motto: "nothing",
-		Adim:  false,
+		Admin: false,
 	}
 
 	users := []user{u1, u2, u3}

@@ -23,6 +23,13 @@
                     Example #3: {{.Name}}
                 {{end}}
             {{end}}
-        </body>
+
+            Example #4
+            {{range .}}
+                {{ if and .Name .Admin}}
+                    Example #4 - Name: {{.Name}}
+                {{end}}
+            {{end}}
     </head>
+        </body>
 </html>
