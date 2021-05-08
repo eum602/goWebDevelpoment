@@ -3,14 +3,14 @@ package main
 import (
 	"log"
 	"os"
+	"strings"
 	"text/template"
 )
 
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseFiles("tpl.goHtml"))
-
+	tpl = template.Must(template.New("").Funcs(fm).ParseFiles("tpl.goHtml"))
 }
 
 type car struct {
@@ -24,10 +24,16 @@ type sage struct {
 	Motto string
 }
 
-// type items struct {
-// 	Wisdom    []sage
-// 	Transport []car
-// }
+var fm = template.FuncMap{
+	"uc": strings.ToUpper,
+	"ft": firstThree,
+}
+
+func firstThree(s string) string {
+	s = strings.TrimSpace(s)
+	s = s[:3]
+	return s
+}
 
 func main() {
 	budha := sage{
@@ -67,11 +73,6 @@ func main() {
 		c,
 	}
 
-	// data := items{
-	// 	Wisdom:    sages,
-	// 	Transport: cars,
-	// }
-
 	data := struct { //using a composite literal instead of creating a new type. This is like an anonymous declaration type
 		Wisdom    []sage
 		Transport []car
@@ -80,7 +81,7 @@ func main() {
 		Transport: cars,
 	}
 
-	err := tpl.Execute(os.Stdout, data)
+	err := tpl.ExecuteTemplate(os.Stdout, "tpl.goHtml", data)
 	if err != nil {
 		log.Fatalln(err)
 	}

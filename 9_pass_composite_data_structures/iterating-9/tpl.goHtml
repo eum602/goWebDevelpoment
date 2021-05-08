@@ -2,14 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Go template 1</title>
+        <title>Functions</title>
         <body>
-            <h1>Iterating over a struct first declaring a variable</h1>
+            <h1>Using functions to manipulate the data before</h1>
             <ul>
                 {{range .Wisdom}}
                     {{$x:= .Name}}
                     {{$y:= .Motto}}
-                    <li>{{$x}} - {{$y}} </li>
+                    <li> {{uc $x}} - {{$y}} </li>
                 {{end}}
             </ul>
 
@@ -18,7 +18,7 @@
                     {{$manufacturer := .Manufacturer}}
                     {{$model := .Model}}
                     {{$doors := .Doors}}
-                    <li>{{$manufacturer}} , {{$model}}, {{$doors}} </li>
+                    <li>{{$manufacturer}} , {{ft $model}}, {{$doors}} </li>
                 {{end}}
             </ul>
         </body>
