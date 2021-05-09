@@ -8,19 +8,19 @@ import (
 )
 
 func main() {
-	li, err := net.Listen("tcp", ":8080")
+	li, err := net.Listen("tcp", ":8080") //1. listen
 	if err != nil {
 		log.Panic(err)
 	}
 	defer li.Close()
 
 	for {
-		conn, err := li.Accept()
+		conn, err := li.Accept() //2. accept
 		if err != nil {
 			log.Println(err)
 		}
 
-		io.WriteString(conn, "\nHello from TCP server \n")
+		io.WriteString(conn, "\nHello from TCP server \n") //3. read and write in the connection
 		fmt.Fprintln(conn, "How is your day?")
 		fmt.Fprintf(conn, "%v", "Well I hope")
 
