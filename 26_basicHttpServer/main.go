@@ -42,8 +42,10 @@ func request(conn net.Conn) {
 		fmt.Println(ln)
 		if i == 0 {
 			//request line
-			m := strings.Fields(ln)[0]
+			m := strings.Fields(ln)[0] //method
+			u := strings.Fields(ln)[1] //uri
 			fmt.Println("*** METHOD is ***", m)
+			fmt.Println("*** URI *** ", u)
 		}
 		if ln == "" { //according to the http spec after the request line and a headers there is a blank line
 			//headers are done
