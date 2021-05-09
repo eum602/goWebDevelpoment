@@ -29,9 +29,6 @@ func handle(conn net.Conn) {
 
 	//read the request
 	request(conn)
-
-	//write a response
-	response(conn)
 }
 
 func request(conn net.Conn) {
@@ -41,11 +38,7 @@ func request(conn net.Conn) {
 		ln := scanner.Text()
 		fmt.Println(ln)
 		if i == 0 {
-			//request line
-			m := strings.Fields(ln)[0] //method
-			u := strings.Fields(ln)[1] //uri
-			fmt.Println("*** METHOD is ***", m)
-			fmt.Println("*** URI *** ", u)
+			mux(conn, ln)
 		}
 		if ln == "" { //according to the http spec after the request line and a headers there is a blank line
 			//headers are done
@@ -56,8 +49,150 @@ func request(conn net.Conn) {
 
 }
 
-func response(conn net.Conn) {
-	body := `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title></title></head><body><strong>Hello world</strong></body></html>`
+func mux(conn net.Conn, ln string) {
+	//request line
+	m := strings.Fields(ln)[0] //method
+	u := strings.Fields(ln)[1] //uri
+	fmt.Println("*** METHOD is ***", m)
+	fmt.Println("*** URI *** ", u)
+
+	//multiplex according to the inputs
+	if m == "GET" && u == "/" {
+		index(conn)
+	}
+
+	if m == "GET" && u == "/about" {
+		about(conn)
+	}
+
+	if m == "GET" && u == "/contact" {
+		contact(conn)
+	}
+
+	if m == "GET" && u == "/apply" {
+		apply(conn)
+	}
+
+	if m == "POST" && u == "/apply" {
+		applyProcess(conn)
+	}
+}
+
+func index(conn net.Conn) {
+	body := `
+	<!DOCTYPE html>
+	<html lang="en">
+		<head><meta charset="UTF-8">
+		<title></title>
+		</head>
+		<body>
+			<strong>INDEX</strong>
+			<br>
+			<a href="/">index</a><br>
+			<a href="/about">about</a><br>
+			<a href="/contact">contact</a><br>
+			<a href="/apply">apply</a><br>
+		</body>
+	</html>`
+	//http structure
+	fmt.Fprintf(conn, "HTTP/1.1 200 OK\n\r")
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
+	fmt.Fprintf(conn, "Content-Type: text/html\r\n")
+	fmt.Fprintf(conn, "\r\n") //blank line
+	fmt.Fprintf(conn, body)   //body
+}
+
+func about(conn net.Conn) {
+	body := `
+	<!DOCTYPE html>
+	<html lang="en">
+		<head><meta charset="UTF-8">
+		<title></title>
+		</head>
+		<body>
+			<strong>ABOUT</strong>
+			<br>
+			<a href="/">index</a><br>
+			<a href="/about">about</a><br>
+			<a href="/contact">contact</a><br>
+			<a href="/apply">apply</a><br>
+		</body>
+	</html>`
+	//http structure
+	fmt.Fprintf(conn, "HTTP/1.1 200 OK\n\r")
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
+	fmt.Fprintf(conn, "Content-Type: text/html\r\n")
+	fmt.Fprintf(conn, "\r\n") //blank line
+	fmt.Fprintf(conn, body)   //body
+}
+
+func contact(conn net.Conn) {
+	body := `
+	<!DOCTYPE html>
+	<html lang="en">
+		<head><meta charset="UTF-8">
+		<title></title>
+		</head>
+		<body>
+			<strong>CONTACT</strong>
+			<br>
+			<a href="/">index</a><br>
+			<a href="/about">about</a><br>
+			<a href="/contact">contact</a><br>
+			<a href="/apply">apply</a><br>
+		</body>
+	</html>`
+	//http structure
+	fmt.Fprintf(conn, "HTTP/1.1 200 OK\n\r")
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
+	fmt.Fprintf(conn, "Content-Type: text/html\r\n")
+	fmt.Fprintf(conn, "\r\n") //blank line
+	fmt.Fprintf(conn, body)   //body
+}
+
+func apply(conn net.Conn) {
+	body := `
+	<!DOCTYPE html>
+	<html lang="en">
+		<head><meta charset="UTF-8">
+		<title></title>
+		</head>
+		<body>
+			<strong>APPLY</strong>
+			<br>
+			<a href="/">index</a><br>
+			<a href="/about">about</a><br>
+			<a href="/contact">contact</a><br>
+			<a href="/apply">apply</a><br>
+			<form method="post" action="/apply">
+				<input type="submit" value="apply">
+			</form>
+		</body>
+	</html>`
+	//http structure
+	fmt.Fprintf(conn, "HTTP/1.1 200 OK\n\r")
+	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
+	fmt.Fprintf(conn, "Content-Type: text/html\r\n")
+	fmt.Fprintf(conn, "\r\n") //blank line
+	fmt.Fprintf(conn, body)   //body
+}
+
+func applyProcess(conn net.Conn) {
+	body := `
+	<!DOCTYPE html>
+	<html lang="en">
+		<head><meta charset="UTF-8">
+		<title></title>
+		</head>
+		<body>
+			<strong>APPLY PROCESS</strong>
+			<br>
+			<a href="/">index</a><br>
+			<a href="/about">about</a><br>
+			<a href="/contact">contact</a><br>
+			<a href="/apply">apply</a><br>
+		</body>
+	</html>`
 	//http structure
 	fmt.Fprintf(conn, "HTTP/1.1 200 OK\n\r")
 	fmt.Fprintf(conn, "Content-Length: %d\r\n", len(body))
