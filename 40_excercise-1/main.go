@@ -3,14 +3,21 @@ package main
 import (
 	"io"
 	"net/http"
+	"text/template"
 )
 
 type home int
 type dog int
 type me int
 
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.ParseGlob("templates/*"))
+}
+
 func (m home) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	io.WriteString(w, "Hello from home!!!")
+	tpl.ExecuteTemplate(w, "index.gohtml", "some message")
 }
 
 func (m me) ServeHTTP(w http.ResponseWriter, req *http.Request) {
