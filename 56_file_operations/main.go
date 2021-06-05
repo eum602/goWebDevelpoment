@@ -64,7 +64,14 @@ func foo(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	//enctype="multipart/form-data ---> indicates that user is uploading a file"
+	//1. enctype="multipart/form-data ---> indicates that user is uploading a file". Use this whenever you use any
+	//kind of '<input type="file">' in your form
+
+	//2. enctype="application/x-www-form-urlencoded" ---> this is the default enctype. If no enctype is pointed in a form
+	//then the this default is automatically set. This kind "application/w-x-www-.." sets key value pairs separated by ampersands
+
+	//3. enctype="text/plain" ---> Not reliable when interpreted by the computer, only use it for debugging but NO for production
+
 	//<input type="file" name="q"  ---> also the input type has to be a file
 
 	//finally either way the method run this
