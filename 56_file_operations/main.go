@@ -4,10 +4,19 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 )
 
 func main() {
+	if _, err := os.Stat("./user"); os.IsNotExist(err) {
+		err = os.Mkdir("./user", 0777)
+		if err != nil {
+			log.Fatalln("Error while creating a 'user' directory", err)
+		}
+	}
 	http.HandleFunc("/", foo)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.ListenAndServe(":8080", nil)
@@ -37,6 +46,22 @@ func foo(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 		s = string(bs) //simply convert the slice of bytes into a string only to finally send it back to the user
+
+		dst, err := os.Create(filepath.Join("./user/", h.Filename)) //Create a file, it states: "From the current directory
+		//go into the user folder and then in there store a file with a name that comes from 'h.Filename'"
+		//os.Create -> creates "a pointer to a file"
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer dst.Close()
+
+		_, err = dst.Write(bs)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
 	}
 
 	//enctype="multipart/form-data ---> indicates that user is uploading a file"
