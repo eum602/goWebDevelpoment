@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"strconv"
 )
 
 func main() {
@@ -13,13 +14,27 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 }
 
-func set(w http.ResponseWriter, req *http.Request) {
-	http.SetCookie(w, &http.Cookie{ //using a composite literal to create a cookie
-		Name:  "my-cookie-name",
-		Value: "this values is abc",
-	})
-	fmt.Fprintln(w, "A cookie has been written, check your browser")
-	fmt.Fprintln(w, "in chrome go to inspect / application / cookies")
+func set(res http.ResponseWriter, req *http.Request) {
+	//read if the cookie exists
+	cookie, err := req.Cookie("my-cookie-counter")
+	if err == http.ErrNoCookie {
+		cookie = &http.Cookie{ //using a composite literal to create a cookie
+			Name:  "my-cookie-counter",
+			Value: "0",
+			Path:  "/",
+		}
+	}
+
+	fv, _ := strconv.Atoi(cookie.Value) //converts ascii to int
+
+	fv++
+
+	cookie.Value = strconv.Itoa(fv)
+
+	http.SetCookie(res, cookie)
+
+	fmt.Fprintln(res, "Visit #", cookie.Value)
+	fmt.Fprintln(res, "in chrome go to inspect / application / cookies") //put these prints only at the end
 }
 
 func read(w http.ResponseWriter, req *http.Request) {
