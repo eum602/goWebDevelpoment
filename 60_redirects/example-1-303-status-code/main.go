@@ -27,8 +27,9 @@ func foo(w http.ResponseWriter, req *http.Request) {
 func bar(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Your request method at bar", req.Method)
 	//set the new location where the client can get the resource
-	w.Header().Set("Location", "/")
-	w.WriteHeader(http.StatusSeeOther) //redirects with status code 303
+	//w.Header().Set("Location", "/")
+	//w.WriteHeader(http.StatusSeeOther) //redirects with status code 303
+	http.Redirect(w, req, "/", http.StatusSeeOther) //this rmakes the same like writing header and setting the location
 	//what it does is send the client to "/"
 }
 
