@@ -1,0 +1,11 @@
+{{template "header"}}
+
+<h1>Welcome to the bar page</h1>
+
+{{ if .First }}
+User Name:  {{ .UserName }} <br>
+Fist Name:  {{ .First }} <br>
+Last Name:  {{ .Last }} <br>
+{{ end }}
+
+{{template "footer"}}
